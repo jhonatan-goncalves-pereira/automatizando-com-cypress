@@ -1,0 +1,41 @@
+# Logs e arquivos temporários
+*.log
+*.tmp
+*.temp
+
+# Dependências do Node.js
+node_modules/
+
+# Arquivos gerados pelo Cypress
+cypress/screenshots/
+cypress/videos/
+cypress/results/
+
+# Arquivos de configuração local
+.env
+.env.local
+.env.*.local
+
+# IDEs e editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Sistemas operacionais
+.DS_Store
+Thumbs.db
+
+# Cypress-specific files
+cypress/downloads/
+cypress/fixtures/*.json # Se você não quiser versionar fixtures específicas
+
+# Build artifacts
+dist/
+build/
+
+# Outros arquivos desnecessários
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json # Opcional: se você preferir usar apenas yarn.lock
