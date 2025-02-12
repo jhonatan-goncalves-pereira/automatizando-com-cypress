@@ -23,13 +23,16 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-import { BASE_URL, VALID_USER, LOCKED_OUT_USER, ERROR_MESSAGES } from '../support/constans';
 
-Cypress.Commands.add('typeUsername', (username = VALID_USER.username) => {
+Cypress.Commands.add('loadConstants', () => {
+    return cy.fixture('constants');
+});
+
+Cypress.Commands.add('typeUsername', (username) => {
     cy.get('#user-name').type(username);
 });
 
-Cypress.Commands.add('typePassword', (password = VALID_USER.password) => {
+Cypress.Commands.add('typePassword', (password) => {
     cy.get('#password').type(password);
 });
 

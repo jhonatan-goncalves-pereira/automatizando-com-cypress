@@ -1,51 +1,58 @@
-import { BASE_URL, VALID_USER, LOCKED_OUT_USER, ERROR_MESSAGES } from '../../support/constans';
-
 describe('Testes de Login no Saucedemo', () => {
-    beforeEach(() => {
-        cy.visit(BASE_URL);
-    });
+  let constants;
 
-    it('Deve realizar login com sucesso usando credenciais válidas', () => {
-        cy.typeUsername();
-        cy.typePassword();
-        cy.clickBtnLogin();
+  before(() => {
+      // Carrega as constantes antes de todos os testes
+      cy.loadConstants().then((data) => {
+          constants = data;
+      });
+  });
 
-        cy.assertionLoginValid();
-    });
+  beforeEach(() => {
+      cy.visit(constants.BASE_URL);
+  });
 
-    it('Deve exibir mensagem de erro ao usar credenciais inválidas', () => {
-        cy.typeUsername('invalid_user');
-        cy.typePassword('wrong_password');
-        cy.clickBtnLogin();
+  it('Deve realizar login com sucesso usando credenciais válidas', () => {
+      cy.typeUsername(constants.VALID_USER.username);
+      cy.typePassword(constants.VALID_USER.password);
+      cy.clickBtnLogin();
 
-        cy.assertErrorMessage(ERROR_MESSAGES.INVALID_CREDENTIALS);
-    });
+      cy.assertionLoginValid();
+  });
 
-    it('Deve exibir mensagem de erro ao deixar o campo de usuário em branco', () => {
-        cy.typePassword();
-        cy.clickBtnLogin();
+  it('Deve exibir mensagem de erro ao usar credenciais inválidas', () => {
+      cy.typeUsername('invalid_user');
+      cy.typePassword('wrong_password');
+      cy.clickBtnLogin();
 
-        cy.assertErrorMessage(ERROR_MESSAGES.REQUIRED_USERNAME);
-    });
+      cy.assertErrorMessage(constants.ERROR_MESSAGES.INVALID_CREDENTIALS);
+  });
 
-    it('Deve exibir mensagem de erro ao deixar o campo de senha em branco', () => {
-        cy.typeUsername();
-        cy.clickBtnLogin();
+  it('Deve exibir mensagem de erro ao deixar o campo de usuário em branco', () => {
+      cy.typePassword(constants.VALID_USER.password);
+      cy.clickBtnLogin();
 
-        cy.assertErrorMessage(ERROR_MESSAGES.REQUIRED_PASSWORD);
-    });
+      cy.assertErrorMessage(constants.ERROR_MESSAGES.REQUIRED_USERNAME);
+  });
 
-    it('Deve exibir mensagem de erro ao deixar ambos os campos em branco', () => {
-        cy.clickBtnLogin();
+  it('Deve exibir mensagem de erro ao deixar o campo de senha em branco', () => {
+      cy.typeUsername(constants.VALID_USER.username);
+      cy.clickBtnLogin();
 
-        cy.assertErrorMessage(ERROR_MESSAGES.REQUIRED_USERNAME);
-    });
+      cy.assertErrorMessage(constants.ERROR_MESSAGES.REQUIRED_PASSWORD);
+  });
 
-    it('Deve bloquear o acesso ao usuário bloqueado (locked_out_user)', () => {
-        cy.typeUsername(LOCKED_OUT_USER.username);
-        cy.typePassword(LOCKED_OUT_USER.password);
-        cy.clickBtnLogin();
+  it('Deve exibir mensagem de erro ao deixar ambos os campos em branco', () => {
+      cy.clickBtnLogin();
 
-        cy.assertErrorMessage(ERROR_MESSAGES.LOCKED_OUT_USER);
-    });
+      cy.assertErrorMessage(constants.ERROR_MESSAGES.REQUIRED_USERNAME);
+  });
+
+  it('Deve bloquear o acesso ao usuário bloqueado (locked_out_user)', () => {
+      cy.typeUsername(constants.LOCKED_OUT_USER.username);
+      cy.typePassword(constants.LOCKED_OUT_USER.password);
+      cy.clickBtnLogin();
+
+      cy.assertErrorMessage(constants.ERROR_MESSAGES.LOCKED_OUT_USER);
+  });
 });
