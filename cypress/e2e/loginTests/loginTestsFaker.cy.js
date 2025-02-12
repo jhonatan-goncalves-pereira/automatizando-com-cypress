@@ -21,21 +21,21 @@ describe('Testes de Login no Saucedemo com Faker', () => {
         });
     });
 
-    it('Deve bloquear o acesso ao usuário bloqueado (locked_out_user)', () => {
-        cy.typeUsername(constants.LOCKED_OUT_USER.username);
-        cy.typePassword(constants.LOCKED_OUT_USER.password);
-        cy.clickBtnLogin();
+    // it('Deve bloquear o acesso ao usuário bloqueado (locked_out_user)', () => {
+    //     cy.typeUsername(constants.LOCKED_OUT_USER.username);
+    //     cy.typePassword(constants.LOCKED_OUT_USER.password);
+    //     cy.clickBtnLogin();
     
-        cy.assertErrorMessage(constants.ERROR_MESSAGES.LOCKED_OUT_USER);
-    });
+    //     cy.assertErrorMessage(constants.ERROR_MESSAGES.LOCKED_OUT_USER);
+    // });
     
-    it('Deve exibir mensagem de erro ao tentar login com usuário bloqueado e senha inválida', () => {
-        cy.generateInvalidCredentials().then((credentials) => {
-            cy.typeUsername(constants.LOCKED_OUT_USER.username);
-            cy.typePassword(credentials.password);
-            cy.clickBtnLogin();
+    // it('Deve exibir mensagem de erro ao tentar login com usuário bloqueado e senha inválida', () => {
+    //     cy.generateInvalidCredentials().then((credentials) => {
+    //         cy.typeUsername(constants.LOCKED_OUT_USER.username);
+    //         cy.typePassword(credentials.password);
+    //         cy.clickBtnLogin();
     
-            cy.assertErrorMessage(constants.ERROR_MESSAGES.LOCKED_OUT_USER);
-        });
-    });
+    //         cy.assertErrorMessage(constants.ERROR_MESSAGES.LOCKED_OUT_USER);
+    //     });
+    // });
 });

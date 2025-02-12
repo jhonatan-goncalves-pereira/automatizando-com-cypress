@@ -1,28 +1,3 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import { faker } from '@faker-js/faker';
 
 
@@ -55,4 +30,47 @@ Cypress.Commands.add('generateInvalidCredentials', () => {
     const invalidUsername = faker.internet.userName();
     const invalidPassword = faker.internet.password();
     return { username: invalidUsername, password: invalidPassword };
+});
+
+
+
+Cypress.Commands.add('login', () => {
+    cy.loadConstants().then((constants) => {
+        cy.visit(constants.BASE_URL, { timeout: 10000 });
+
+        cy.url().then((currentUrl) => {
+            cy.log('URL atual:', currentUrl);
+        });
+
+        cy.get('#user-name', { timeout: 10000 }).should('be.visible').type(constants.VALID_USER.username);
+        cy.get('#password').should('be.visible').type(constants.VALID_USER.password);
+        cy.get('#login-button').should('be.visible').click();
+        cy.url().should('include', '/inventory.html');
+    });
+});
+
+Cypress.Commands.add('addItemToCart', (index = 0) => {
+    cy.get('.inventory_item')
+        .eq(index)
+        .find('button')
+        .click();
+});
+
+Cypress.Commands.add('removeItemFromCart', (index = 0) => {
+    cy.get('.cart_item')
+        .eq(index)
+        .find('button')
+        .click();
+});
+
+Cypress.Commands.add('openCart', () => {
+    cy.get('.shopping_cart_link').click();
+});
+
+Cypress.Commands.add('assertCartBadgeCount', (count) => {
+    cy.get('.shopping_cart_badge').should('contain', count);
+});
+
+Cypress.Commands.add('assertCartItemCount', (count) => {
+    cy.get('.cart_item').should('have.length', count);
 });

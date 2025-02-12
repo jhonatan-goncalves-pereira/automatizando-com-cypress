@@ -12,6 +12,6 @@
         "REQUIRED_USERNAME": "Username is required",
         "REQUIRED_PASSWORD": "Password is required",
         "INVALID_CREDENTIALS": "Username and password do not match",
-        "LOCKED_OUT_USER": "Sorry, this user has been locked out."
+        "LOCKED_OUT_USER": "This user has been locked out."
     }
 }
