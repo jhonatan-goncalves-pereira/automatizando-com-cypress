@@ -2,7 +2,6 @@ describe('Testes de Login no Saucedemo', () => {
   let constants;
 
   before(() => {
-      // Carrega as constantes antes de todos os testes
       cy.loadConstants().then((data) => {
           constants = data;
       });

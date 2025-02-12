@@ -1,15 +1,15 @@
 describe('Testes de Checkout no SauceDemo', () => {
     beforeEach(() => {
-        cy.login(); // Realiza o login antes de cada teste
-        cy.addItemToCart(); // Adiciona um item ao carrinho
-        cy.openCart(); // Acessa o carrinho
+        cy.login(); 
+        cy.addItemToCart(); 
+        cy.openCart(); 
     });
 
     it('Deve concluir o checkout com sucesso', () => {
-        cy.startCheckout(); // Inicia o checkout
+        cy.startCheckout(); 
         cy.fillCheckoutForm('John', 'Doe', '12345'); // Preenche o formulário
-        cy.completeCheckout(); // Finaliza o checkout
-        cy.assertCheckoutSuccess(); // Verifica a mensagem de sucesso
+        cy.completeCheckout(); 
+        cy.assertCheckoutSuccess(); 
     });
 
     it('Deve exibir mensagem de erro ao deixar campos obrigatórios em branco', () => {
