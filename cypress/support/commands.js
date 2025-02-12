@@ -23,6 +23,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import { faker } from '@faker-js/faker';
+
 
 Cypress.Commands.add('loadConstants', () => {
     return cy.fixture('constants');
@@ -47,4 +49,10 @@ Cypress.Commands.add('assertionLoginValid', () => {
 
 Cypress.Commands.add('assertErrorMessage', (message) => {
     cy.get('[data-test="error"]').should('contain', message);
+});
+
+Cypress.Commands.add('generateInvalidCredentials', () => {
+    const invalidUsername = faker.internet.userName();
+    const invalidPassword = faker.internet.password();
+    return { username: invalidUsername, password: invalidPassword };
 });
